@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-image: url('/assets/images/background-mobile.svg');
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
+}
+* {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        background-image: url('/assets/images/background-tablet.svg');
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body {
+        background-image: url('/assets/images/background-desktop.svg');
+    }
+}
