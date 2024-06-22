@@ -18,10 +18,6 @@ export class CategoriesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("cameeeee")
       this.categories$ = this.httpService.getChoosableCategories()
-      this.categories$.subscribe((res) => {
-        console.log(res,"121312312313123");
-      })
   }
 }
