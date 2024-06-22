@@ -1,0 +1,8 @@
+<app-header [text]="'Pick a Category'"/>
+
+<main>
+    @for (item of (categories$ | async); track $index) {
+        <button>{{item}}</button>
+    }
+
+</main>

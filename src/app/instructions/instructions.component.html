@@ -1,0 +1,7 @@
+
+<app-header [text]="'how to play'"/>
+<main>
+    @for (card of cards; track card.number) {
+        <app-instruction-card [card]="card" />
+    }
+</main>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  private navigateService = inject(NavigateService)
 
+  onNavigate(type:string) {
+    this.navigateService.navigateTo(`/${type}`);
+  }
 }

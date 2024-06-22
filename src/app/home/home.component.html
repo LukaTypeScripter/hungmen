@@ -2,8 +2,10 @@
     <div class="home__content">
         <img class="home__content-header" src="/assets/images/logo.svg" alt="logo">
 
-        <button class="home__content-play">
+        <button class="home__content-play" (click)="onNavigate('choose-stage')">
             <img src="/assets/images/icon-play.svg" alt="play">
         </button>
+
+        <button class="home__content-how-to-play" (click)="onNavigate('how-to-play')">HOW TO PLAY</button>
     </div>
 </div>
