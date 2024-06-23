@@ -3,6 +3,7 @@ import { HeaderComponent } from "../shared/header/header.component";
 import { HttpService } from '../../services/http.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-categories',
@@ -12,12 +13,16 @@ import { CommonModule } from '@angular/common';
     imports: [HeaderComponent,CommonModule]
 })
 export class CategoriesComponent implements OnInit {
-
   private httpService = inject(HttpService)
   categories$!:Observable<string[]> 
-
+  private router = inject(Router);
 
   ngOnInit(): void {
       this.categories$ = this.httpService.getChoosableCategories()
   }
+
+  addParams(type:string) {
+    this.router.navigate([`/play/${type}`], { queryParams: { id: type }, queryParamsHandling: "merge" });
+  }
+
 }

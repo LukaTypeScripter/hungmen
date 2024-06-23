@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { Categories } from '../models/category.interface';
+import { Observable, catchError, map, of } from 'rxjs';
+import { Categories, CategoryArr } from '../models/category.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,16 @@ export class HttpService {
   getChoosableCategories() {
     return this.getData().pipe(
       map(categories => Object.keys(categories)) 
+    );
+  }
+
+  onChooseCategory(categoryKey: keyof Categories): Observable<CategoryArr> {
+    return this.getData().pipe(
+      map(res => res[categoryKey] || []),
+      catchError(error => {
+        console.error('Error fetching category data:', error);
+        return of([]); 
+      })
     );
   }
 }

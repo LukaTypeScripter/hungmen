@@ -10,7 +10,8 @@ export interface Root {
     Animals: Animal[]
     Sports: Sport[]
   }
-  
+  export type Category = Movy | Show | Country | City | Animal | Sport;
+  export type CategoryArr = Movy[] | Show[] | Country[] | City[] | Animal[] | Sport[];
   export interface Movy {
     name: string
     selected: boolean

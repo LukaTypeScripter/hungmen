@@ -1,0 +1,9 @@
+<div class="answer">
+    <div class="answer__wrapper">
+        <div [class.answer__wrapper--show]="displayedLetters.get(item)" *ngFor="let item of displayedLetters.keys()">
+            <div >
+                <p >{{item}}</p>
+            </div>
+        </div>
+    </div>
+</div>

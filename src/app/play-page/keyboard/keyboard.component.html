@@ -1,0 +1,7 @@
+<div class="keyboard">
+    @for (item of alphabet.keys(); track $index) {
+        <div [class.keyboard--selected]="alphabet.get(item)" (click)="handleSelect(item)">
+            <p>{{item}}</p>
+        </div>
+    }
+</div>

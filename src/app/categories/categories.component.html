@@ -2,7 +2,7 @@
 
 <main>
     @for (item of (categories$ | async); track $index) {
-        <button>{{item}}</button>
+        <button (click)="addParams(item)">{{item}}</button>
     }
 
 </main>

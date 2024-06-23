@@ -1,0 +1,6 @@
+<ng-container *ngIf="(category$ | async)">
+    <app-play-header  />
+    <app-answer [word]="selectedWord" [getSingleWord]="singleWord"/>
+    <app-keyboard (selectedWord)="onSelectWord($event)" />
+</ng-container>
+

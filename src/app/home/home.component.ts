@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigateService } from '../../services/navigate.service';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-home',
