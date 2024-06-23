@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, OnDestroy, SimpleChanges, inject } from '@angular/core';
 import { GameService } from '../../../services/game.service';
 
 @Component({
