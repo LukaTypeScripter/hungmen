@@ -20,7 +20,7 @@ import { unsub } from '../../unsub.class';
     imports: [PlayHeaderComponent, AnswerComponent, KeyboardComponent, CommonModule, HamModalComponent]
 })
 
-export class PlayPageComponent extends unsub implements OnInit {
+export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
   private route = inject(ActivatedRoute)
   private http = inject(HttpService)
   private gameService = inject(GameService)
@@ -58,6 +58,12 @@ export class PlayPageComponent extends unsub implements OnInit {
 
   onSelectWord(event:any) {
     this.$$singleWord$$.set(event)
+  }
+
+  override ngOnDestroy(): void {
+    localStorage.removeItem('randomName');
+    this.onGetCategory()
+    this.gameService.health.set(6)
   }
 
 }
