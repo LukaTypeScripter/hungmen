@@ -1,0 +1,14 @@
+<section>
+    <div class="ham">
+        <p class="ham-title">{{type === 'lose' ? 'Game Over' : 'paused'}}</p>
+        <div class="ham__content">
+            @if(type === 'lose') {
+                <button (click)="onPlayAgain()">play again</button>
+            } @else {
+                <button (click)="closeHam.emit()">CONTINUE</button>
+            }
+            <button (click)="onNavigate('choose-stage')">NEW CATEGORY</button>
+            <div (click)="onNavigate('')">QUIT GAME</div>
+        </div>
+    </div>
+</section>

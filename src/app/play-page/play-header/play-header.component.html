@@ -1,14 +1,13 @@
 <header class="header">
-        <div class="header__menu">
-            <button>
+        <div class="header__menu" >
+            <button (click)="openPopup.emit(true)">
                 <img src="/assets/images/icon-menu.svg" alt="menu">
             </button>
             <p>TV Shows</p>
         </div>
-
         <div class="header__heart">
             <div class="header__heart-progress">
-                <div></div>
+                <div [style.width.%]="(procent() / 5) * 100"></div>
             </div>
             <img src="/assets/images/icon-heart.svg" alt="heart">
         </div>

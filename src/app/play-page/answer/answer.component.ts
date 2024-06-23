@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, inject } from '@angular/core';
+import { GameService } from '../../../services/game.service';
 
 @Component({
   selector: 'app-answer',
@@ -9,7 +10,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestro
   styleUrl: './answer.component.scss',
 })
 export class AnswerComponent implements OnDestroy {
-
+  private gameService = inject(GameService)
   @Input() word: string | undefined = '';
   @Input() set getSingleWord(val: string) {
     if (val) {
@@ -39,11 +40,20 @@ export class AnswerComponent implements OnDestroy {
   }
 
   revealLetter(selectedLetter: string): void {
+    let iscorrect = false
     this.word?.split('').forEach(letter => {
       if (letter.toLowerCase() === selectedLetter.toLowerCase()) {
         this.displayedLetters.set(letter.toLowerCase(), true);
+        iscorrect = true
+      } else {
+          iscorrect = false
       }
     });
+    if(!iscorrect) {
+      this.gameService.health.update(((i) => {
+        return i - 1
+      }))
+    }
   }
 
   ngOnDestroy(): void {

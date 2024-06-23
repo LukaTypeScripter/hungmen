@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Categories, CategoryArr } from '../models/category.interface';
 
@@ -8,7 +8,7 @@ import { Categories, CategoryArr } from '../models/category.interface';
 })
 export class HttpService {
   private http = inject(HttpClient)
-
+ 
   getData(): Observable<Categories> {
     const url = '/assets/json/data.json';
     return this.http.get<{ categories: Categories }>(url).pipe(

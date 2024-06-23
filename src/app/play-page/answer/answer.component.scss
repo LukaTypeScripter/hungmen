@@ -54,4 +54,42 @@
     }
 
   }
+  @media screen and (min-width: 768px)  {
+    padding: 4rem;
+    gap: 2.2rem;
+    &__wrapper {
+      gap: 1.8rem;
+      max-width: unset;
+    }
+    div:first-child,
+    div:last-child {
+      div {
+        width: 8.2rem;
+        height: 10.6rem;
+        border-radius: 3.2rem;
+ 
+      }
+    }
+  }
+
+
+  @media screen and (min-width: 1000px)  {
+    padding: 2.8rem 4rem;
+    margin: auto;
+    max-width: 129.2rem;
+    &__wrapper {
+      gap: 1.8rem;
+      max-width: unset;
+      margin: 0 5rem;
+    }
+    div:first-child,
+    div:last-child {
+      div {
+        width: 10.6rem;
+        height: 12.2rem;
+        border-radius: 4rem;
+ 
+      }
+    }
+  }
 }
