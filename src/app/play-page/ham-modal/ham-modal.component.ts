@@ -22,6 +22,7 @@ export class HamModalComponent {
   onPlayAgain() {
     this.gameService.playAgain$.next(true)
     this.closeHam.emit()
+    this.gameService.userWon.next(false)
   }
 
 }

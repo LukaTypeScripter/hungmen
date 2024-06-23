@@ -18,7 +18,7 @@ export class AnswerComponent implements OnDestroy {
     }
   }
 
-  displayedLetters: Map<string, boolean> = new Map<string, boolean>();
+  displayedLetters: Map<string, { revealed: boolean, character: string }> = new Map<string, { revealed: boolean, character: string }>();;
 
 
 
@@ -29,32 +29,42 @@ export class AnswerComponent implements OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['word'] && !changes['word'].isFirstChange()) {
       this.initializeDisplayedLetters();
+     
+      
     }
   }
 
   initializeDisplayedLetters(): void {
     this.displayedLetters.clear(); 
-    this.word?.toLowerCase().split('').forEach((char, index) => {
-        this.displayedLetters.set(char, index === 0);
-    });
+    this.word?.split('').forEach((letter, index) => {
+      this.displayedLetters.set(`${letter.toLowerCase()}_${index}`,  { revealed: false, character: letter });
+    })
 }
 
-  revealLetter(selectedLetter: string): void {
-    let iscorrect = false
-    this.word?.split('').forEach(letter => {
-      if (letter.toLowerCase() === selectedLetter.toLowerCase()) {
-        this.displayedLetters.set(letter.toLowerCase(), true);
-        iscorrect = true
-      } else {
-          iscorrect = false
-      }
-    });
-    if(!iscorrect) {
-      this.gameService.health.update(((i) => {
-        return i - 1
-      }))
-    }
+revealLetter(selectedLetter: string): void {
+  let isCorrect = false;
+  let updated = false;
+  this.word?.split('').forEach((letter, index) => {
+    if (letter.toLowerCase() === selectedLetter.toLowerCase()) {
+      this.displayedLetters.set(`${letter.toLowerCase()}_${index}`, { revealed: true, character: letter });
+      isCorrect = true;
+      updated = true;
   }
+  });
+
+  if (!isCorrect) {
+      this.gameService.health.update((i) => i - 1);
+  }
+
+  if (updated) {
+      let arr = Array.from(this.displayedLetters);
+      let allTrue = arr.every(([_, value]) => value);
+      
+      if(allTrue) {
+          this.gameService.userWon.next(true);
+      }
+  }
+}
 
   ngOnDestroy(): void {
     if (typeof localStorage !== 'undefined') {

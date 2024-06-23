@@ -1,8 +1,8 @@
 <section>
     <div class="ham">
-        <p class="ham-title">{{type === 'lose' ? 'Game Over' : 'paused'}}</p>
+        <p class="ham-title">{{type === 'lose' ? 'Game Over' : type == 'won' ?  'you win' : 'paused'}}</p>
         <div class="ham__content">
-            @if(type === 'lose') {
+            @if(type === 'lose' || type === 'won' ) {
                 <button (click)="onPlayAgain()">play again</button>
             } @else {
                 <button (click)="closeHam.emit()">CONTINUE</button>

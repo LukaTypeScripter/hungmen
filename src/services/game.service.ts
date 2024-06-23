@@ -1,5 +1,5 @@
 import { Injectable, effect, signal } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class GameService {
   health = signal(5)
   playAgain$ = new Subject()
-
+  userWon = new BehaviorSubject(false)
 
 
 }

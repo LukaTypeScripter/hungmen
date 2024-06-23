@@ -1,6 +1,6 @@
     @if ((category$ | async)) {
-        @if($$isHamOpen$$() || health() === 0) {
-            <app-ham-modal  (closeHam)="$$isHamOpen$$.set(false)" [type]="health() === 0 ? 'lose' : 'normal'"/>
+        @if($$isHamOpen$$() || health() === 0  ) {
+            <app-ham-modal  (closeHam)="$$isHamOpen$$.set(false)" [type]="health() === 0 ? 'lose' : userWon()  ? 'won' : 'normal'"/>
         }
     
         <app-play-header (openPopup)="$$isHamOpen$$.set($event)" />

@@ -1,8 +1,8 @@
 <div class="answer">
     <div class="answer__wrapper">
-        <div [class.answer__wrapper--show]="displayedLetters.get(item)" *ngFor="let item of displayedLetters.keys()">
+        <div [class.answer__wrapper--show]="item.revealed" *ngFor="let item of displayedLetters.values()">
             <div >
-                <p >{{item}}</p>
+                <p >{{item.character}}</p>
             </div>
         </div>
     </div>

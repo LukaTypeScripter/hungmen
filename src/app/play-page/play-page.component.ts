@@ -29,12 +29,18 @@ export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
   $$singleWord$$ = signal('')
   $$isHamOpen$$ = signal(false)
   health = this.gameService.health
+  userWon = signal(false)
   ngOnInit(): void {
   this.onGetCategory()
   this.gameService.playAgain$.pipe(map(() => {
     localStorage.removeItem('randomName');
     this.onGetCategory()
     this.gameService.health.set(6)
+    this.gameService.userWon.next(false)
+    this.$$isHamOpen$$.set(false)
+  }),takeUntil(this.unsubscribe$)).subscribe()
+  this.gameService.userWon.pipe(map((res) => {
+    this.userWon.set(res) 
   }),takeUntil(this.unsubscribe$)).subscribe()
   }
 
@@ -44,11 +50,11 @@ export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
         map((res) => {
           const storedName = localStorage.getItem('randomName');
           if (storedName) {
-            this.$$selectedWord$$.set(storedName)
+            this.$$selectedWord$$.set(storedName.replace(/\s/g, ''))
           } else {
             const randomName = getRandomObjectNameAndStore(res);
             localStorage.setItem('randomName', randomName || '');
-            this.$$selectedWord$$.set(randomName) 
+            this.$$selectedWord$$.set(randomName?.replace(/\s/g, '')) 
           }
           return res;
         })
@@ -66,6 +72,7 @@ export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
     }
     this.onGetCategory()
     this.gameService.health.set(6)
+    this.gameService.userWon.next(false)
   }
 
 }
