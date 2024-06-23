@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, inject } from '@angular/core';
 
 @Component({
   selector: 'app-answer',
@@ -8,34 +8,42 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestro
   templateUrl: './answer.component.html',
   styleUrl: './answer.component.scss',
 })
-export class AnswerComponent implements OnInit,OnDestroy {
-  private cdr = inject(ChangeDetectorRef)
+export class AnswerComponent implements OnDestroy {
+
   @Input() word: string | undefined = '';
   @Input() set getSingleWord(val: string) {
-    if(val) {
+    if (val) {
       this.revealLetter(val);
-    } else {
-      this.word?.toLowerCase()?.split('').filter((char) => char !== ' ').forEach((char) => {
-        this.displayedLetters.set(char, false);
-      });
     }
-
-  
   }
-  displayedLetters: any = new Map<string, boolean>();
 
-  ngOnInit(): void {
-  
+  displayedLetters: Map<string, boolean> = new Map<string, boolean>();
+
+
+
+  ngAfterViewInit(): void {
+    this.initializeDisplayedLetters();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['word'] && !changes['word'].isFirstChange()) {
+      this.initializeDisplayedLetters();
+    }
+  }
+
+  initializeDisplayedLetters(): void {
+    this.displayedLetters.clear(); 
+    this.word?.toLowerCase().split('').filter(char => char !== ' ').forEach(char => {
+      this.displayedLetters.set(char, false);
+    });
   }
 
   revealLetter(selectedLetter: string): void {
-    const updatedLetters = new Map<string, boolean>(this.displayedLetters);
-    this.word?.split('').forEach((letter) => {
+    this.word?.split('').forEach(letter => {
       if (letter.toLowerCase() === selectedLetter.toLowerCase()) {
-        updatedLetters.set(letter.toLowerCase(), true);
+        this.displayedLetters.set(letter.toLowerCase(), true);
       }
     });
-    this.displayedLetters = updatedLetters;
   }
 
   ngOnDestroy(): void {
