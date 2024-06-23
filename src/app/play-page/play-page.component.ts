@@ -48,13 +48,15 @@ export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
     this.category$ = this.route.paramMap.pipe(
       switchMap((params) => this.http.onChooseCategory(params.get('id') as keyof Categories).pipe(
         map((res) => {
-          const storedName = localStorage.getItem('randomName');
-          if (storedName) {
-            this.$$selectedWord$$.set(storedName.replace(/\s/g, ''))
-          } else {
-            const randomName = getRandomObjectNameAndStore(res);
-            localStorage.setItem('randomName', randomName || '');
-            this.$$selectedWord$$.set(randomName?.replace(/\s/g, '')) 
+          if(typeof localStorage !== 'undefined') {
+            const storedName = localStorage.getItem('randomName');
+            if (storedName) {
+              this.$$selectedWord$$.set(storedName.replace(/\s/g, ''))
+            } else {
+              const randomName = getRandomObjectNameAndStore(res);
+              localStorage.setItem('randomName', randomName || '');
+              this.$$selectedWord$$.set(randomName?.replace(/\s/g, '')) 
+            }
           }
           return res;
         })

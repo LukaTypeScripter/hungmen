@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, SimpleChanges, inject } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Component, Input, OnDestroy, SimpleChanges, inject } from '@angular/core';
 import { GameService } from '../../../services/game.service';
 
 @Component({
@@ -18,26 +18,20 @@ export class AnswerComponent implements OnDestroy {
     }
   }
 
-  displayedLetters: Map<string, { revealed: boolean, character: string }> = new Map<string, { revealed: boolean, character: string }>();;
+  displayedLetters: Map<string, { revealed: boolean, character: string }> = new Map<string, { revealed: boolean, character: string }>();
 
 
 
   ngAfterViewInit(): void {
-    this.initializeDisplayedLetters();
+      this.initializeDisplayedLetters();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['word'] && !changes['word'].isFirstChange()) {
-      this.initializeDisplayedLetters();
-     
-      
-    }
-  }
+
 
   initializeDisplayedLetters(): void {
     this.displayedLetters.clear(); 
     this.word?.split('').forEach((letter, index) => {
-      this.displayedLetters.set(`${letter.toLowerCase()}_${index}`,  { revealed: false, character: letter });
+      this.displayedLetters.set(`${letter.toLowerCase()}_${index}`,  { revealed: index === 0, character: letter });
     })
 }
 
@@ -58,15 +52,16 @@ revealLetter(selectedLetter: string): void {
 
   if (updated) {
       let arr = Array.from(this.displayedLetters);
-      let allTrue = arr.every(([_, value]) => value);
-      
+      let allTrue = arr.every(([_, value]) => value.revealed);
       if(allTrue) {
           this.gameService.userWon.next(true);
+          this.displayedLetters.set
       }
   }
 }
 
   ngOnDestroy(): void {
+    this.displayedLetters.clear();
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('randomName');
     }

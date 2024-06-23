@@ -1,8 +1,7 @@
     @if ((category$ | async)) {
-        @if($$isHamOpen$$() || health() === 0  ) {
+        @if($$isHamOpen$$() || health() === 0  || userWon() ) {
             <app-ham-modal  (closeHam)="$$isHamOpen$$.set(false)" [type]="health() === 0 ? 'lose' : userWon()  ? 'won' : 'normal'"/>
         }
-    
         <app-play-header (openPopup)="$$isHamOpen$$.set($event)" />
         <app-answer [word]="$$selectedWord$$()" [getSingleWord]="$$singleWord$$()"/>
         <app-keyboard (selectedWord)="onSelectWord($event)" />
