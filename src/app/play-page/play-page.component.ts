@@ -61,7 +61,9 @@ export class PlayPageComponent extends unsub implements OnInit,OnDestroy {
   }
 
   override ngOnDestroy(): void {
-    localStorage.removeItem('randomName');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('randomName');
+    }
     this.onGetCategory()
     this.gameService.health.set(6)
   }

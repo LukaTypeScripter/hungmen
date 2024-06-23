@@ -34,10 +34,10 @@ export class AnswerComponent implements OnDestroy {
 
   initializeDisplayedLetters(): void {
     this.displayedLetters.clear(); 
-    this.word?.toLowerCase().split('').filter(char => char !== ' ').forEach(char => {
-      this.displayedLetters.set(char, false);
+    this.word?.toLowerCase().split('').forEach((char, index) => {
+        this.displayedLetters.set(char, index === 0);
     });
-  }
+}
 
   revealLetter(selectedLetter: string): void {
     let iscorrect = false

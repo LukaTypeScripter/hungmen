@@ -8,7 +8,7 @@ import { Categories, CategoryArr } from '../models/category.interface';
 })
 export class HttpService {
   private http = inject(HttpClient)
- 
+  categoryKey = signal('')
   getData(): Observable<Categories> {
     const url = '/assets/json/data.json';
     return this.http.get<{ categories: Categories }>(url).pipe(
@@ -23,6 +23,7 @@ export class HttpService {
   }
 
   onChooseCategory(categoryKey: keyof Categories): Observable<CategoryArr> {
+    this.categoryKey.set(categoryKey)
     return this.getData().pipe(
       map(res => res[categoryKey] || []),
       catchError(error => {

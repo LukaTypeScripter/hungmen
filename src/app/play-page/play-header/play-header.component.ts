@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, effect, inject } from '@angular/core';
 import { GameService } from '../../../services/game.service';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-play-header',
@@ -10,8 +11,9 @@ import { GameService } from '../../../services/game.service';
 })
 export class PlayHeaderComponent{
   private gameService = inject(GameService)
+  private http = inject(HttpService)
   @Output() openPopup = new EventEmitter()
   public procent = this.gameService.health
-
+  categoryKey = this.http.categoryKey
 
 }
