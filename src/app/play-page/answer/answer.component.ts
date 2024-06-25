@@ -11,6 +11,7 @@ import { GameService } from '../../../services/game.service';
 })
 export class AnswerComponent implements OnDestroy {
   private gameService = inject(GameService)
+
   @Input() word: string | undefined = '';
   @Input() set getSingleWord(val: string) {
     if (val) {
@@ -29,7 +30,7 @@ export class AnswerComponent implements OnDestroy {
 
 
   initializeDisplayedLetters(): void {
-    this.displayedLetters.clear(); 
+    this.displayedLetters.clear();
     this.word?.split('').forEach((letter, index) => {
       this.displayedLetters.set(`${letter.toLowerCase()}_${index}`,  { revealed: index === 0, character: letter });
     })

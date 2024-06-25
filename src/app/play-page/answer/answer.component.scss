@@ -1,3 +1,4 @@
+
 .answer {
   display: flex;
   flex-direction: row;
@@ -14,13 +15,16 @@
   max-width: 30rem;
     width: 100%;
     flex-wrap: wrap;
-  
+    &--show:not(:first-child) {
+      animation: hangman-animation 1s ease-in-out;
+    }
     &--show {
       opacity: 1 !important;
+
       div {
         opacity: 1 !important;
         p {
-       
+
           display: block !important;
         }
       }
@@ -67,7 +71,7 @@
         width: 8.2rem;
         height: 10.6rem;
         border-radius: 3.2rem;
- 
+
       }
     }
   }
@@ -88,8 +92,19 @@
         width: 10.6rem;
         height: 12.2rem;
         border-radius: 4rem;
- 
+
       }
     }
+  }
+}
+@keyframes hangman-animation {
+  0% {
+    transform: rotate3d(0, 1, 0.5, 3.142rad);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: rotate3d(0);
   }
 }

@@ -10,6 +10,7 @@ section {
     align-items: center;
     padding: 2.5rem;
     z-index: 1;
+
     .ham {
         border-radius: 4.8rem;
         background: linear-gradient(180deg, #344aba, rgba(0, 20, 121, .83));
@@ -17,6 +18,7 @@ section {
         width: 100%;
         position: relative;
         z-index: 2;
+        animation: show-popup 0.8s forwards;
         &-title {
             text-align: center;
             -webkit-text-stroke-width: 8;
@@ -90,4 +92,15 @@ section {
                 }
             }
     }
+}
+
+@keyframes show-popup {
+  0% {
+    transform:translate(0, 0) scale(.5);
+    opacity: 0;
+  }
+  100% {
+    transform:translate(0, 0) scale(1);
+    opacity: 1;
+  }
 }
